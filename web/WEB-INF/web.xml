@@ -4,9 +4,17 @@
         <servlet-name>Ejercicio1Servlet</servlet-name>
         <servlet-class>ejercicio1.Ejercicio1Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Ejercicio2Servlet</servlet-name>
+        <servlet-class>ejercicio2.Ejercicio2Servlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Ejercicio1Servlet</servlet-name>
         <url-pattern>/Ejercicio1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Ejercicio2Servlet</servlet-name>
+        <url-pattern>/Ejercicio2</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
