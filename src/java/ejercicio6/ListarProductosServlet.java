@@ -3,16 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicio5;
+package ejercicio6;
 
 import models.Product;
-import models.ProductInCart;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,13 +21,30 @@ import javax.servlet.http.HttpSession;
  *
  * @author sergio
  */
-public class ListarCarritoServlet extends HttpServlet {
-
+public class ListarProductosServlet extends HttpServlet {
+    
+    public final static String PRODUCTS_IN_CART_KEY = "ProductsInCart";
+    
     private ProductsDAO productsDao;
 
     @Override
     public void init() throws ServletException {
-        productsDao = new ProductsDAO();
+        productsDao = (ProductsDAO)this.getServletContext().getAttribute("dao");
+    }
+   
+   
+    private void saveProduct(HttpSession session, Integer ref){
+        HashMap<Integer,Integer> productsInCart = (HashMap<Integer,Integer>)session.getAttribute(PRODUCTS_IN_CART_KEY);
+        if(productsInCart == null){
+            productsInCart = new HashMap<>();
+        }
+        Integer quantity = 1;
+        if(productsInCart.containsKey(ref)){
+           quantity =  productsInCart.get(ref);
+           quantity += 1;
+        }
+        productsInCart.put(ref, quantity);
+        session.setAttribute(PRODUCTS_IN_CART_KEY, productsInCart);
     }
     
     /**
@@ -45,41 +59,22 @@ public class ListarCarritoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession session = request.getSession();
-         //recuperamos mapa con los productos
-        HashMap<Integer,Integer> productsInCart = (HashMap<Integer,Integer>)session.getAttribute("ProductsInCart");
-        
-        //comprobamos si existe el parámetro drop con la ref del producto a eliminar del carro.
-        String refParam = request.getParameter("drop");
-        if(refParam != null){
-            Integer ref = Integer.parseInt(refParam);
-            if(productsInCart.containsKey(ref)){
-                productsInCart.remove(ref);
-                request.setAttribute("productDeleted", ref);
-            }
+        String ref = request.getParameter("addToCart");
+        if(ref != null){
+            HttpSession session = request.getSession();
+            saveProduct(session,Integer.parseInt(ref));
+            //save the product name to request scope
+            request.setAttribute("productAdded", ref);
         }
         
-        List<ProductInCart> products = new ArrayList<>();
-        if(productsInCart != null && productsInCart.size() > 0){
-            //iteramos sobre el map para obtener una lista de ProductInCart que se presentarán en la tabla
-            Iterator it = productsInCart.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry entry = (Map.Entry)it.next();
-                //Obtenemos información de producto a partir de su ref.
-                Product product = productsDao.getProductByRef((Integer)entry.getKey());
-                products.add(new ProductInCart(product.getRef(),product.getName(),product.getPrice(), (Integer) entry.getValue()));
-            }
-            //establecemos la lista en el request scope
-            request.setAttribute("products", products);
-        }
-        //redirigimos al servlet de presentación
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ListarCarrito.jsp");
+        //set products on request scope
+        List<Product> products = productsDao.getProducts();
+        request.setAttribute("products", products);
+       
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/listarProductos.jsp");
         rd.forward(request, response);
-        
-        
-        
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -92,7 +87,8 @@ public class ListarCarritoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processRequest(request,response);
+        
     }
 
     /**
@@ -106,7 +102,7 @@ public class ListarCarritoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processRequest(request,response);
     }
 
     /**

@@ -5,6 +5,7 @@
  */
 package ejercicio5;
 
+import models.Product;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;

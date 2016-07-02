@@ -5,6 +5,7 @@
  */
 package ejercicio5;
 
+import models.Product;
 import java.util.ArrayList;
 import java.util.List;
 

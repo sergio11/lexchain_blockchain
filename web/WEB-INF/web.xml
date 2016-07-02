@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>ejercicio6.ProductsServletContextListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>Ejercicio1Servlet</servlet-name>
         <servlet-class>ejercicio1.Ejercicio1Servlet</servlet-class>
@@ -8,6 +12,34 @@
         <servlet-name>Ejercicio2Servlet</servlet-name>
         <servlet-class>ejercicio2.Ejercicio2Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Ejercicio3Servlet</servlet-name>
+        <servlet-class>ejercicio3.Ejercicio3Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Ejercicio4InsertarServlet</servlet-name>
+        <servlet-class>ejercicio4.Ejercicio4InsertarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Ejercicio4MostrarServlet</servlet-name>
+        <servlet-class>ejercicio4.Ejercicio4MostrarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListarProductosServlet</servlet-name>
+        <servlet-class>ejercicio5.ListarProductosServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListarCarrito</servlet-name>
+        <servlet-class>ejercicio5.ListarCarritoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListarProductosServletBD</servlet-name>
+        <servlet-class>ejercicio6.ListarProductosServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListarCarritoBD</servlet-name>
+        <servlet-class>ejercicio6.ListarCarritoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Ejercicio1Servlet</servlet-name>
         <url-pattern>/Ejercicio1</url-pattern>
@@ -15,6 +47,34 @@
     <servlet-mapping>
         <servlet-name>Ejercicio2Servlet</servlet-name>
         <url-pattern>/Ejercicio2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Ejercicio3Servlet</servlet-name>
+        <url-pattern>/Ejercicio3</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Ejercicio4InsertarServlet</servlet-name>
+        <url-pattern>/Ejercicio4Insertar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Ejercicio4MostrarServlet</servlet-name>
+        <url-pattern>/Ejercicio4Mostrar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarProductosServlet</servlet-name>
+        <url-pattern>/ListarProductos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarCarrito</servlet-name>
+        <url-pattern>/ListarCarrito</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarProductosServletBD</servlet-name>
+        <url-pattern>/ListarProductosBD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListarCarritoBD</servlet-name>
+        <url-pattern>/ListarCarritoBD</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
