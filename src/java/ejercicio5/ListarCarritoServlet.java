@@ -8,7 +8,9 @@ package ejercicio5;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,30 +22,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author sergio
  */
-public class ListarProductosServlet extends HttpServlet {
-    
-    public final static String PRODUCTS_IN_CART_KEY = "ProductsInCart";
-    
+public class ListarCarritoServlet extends HttpServlet {
+
     private ProductsDAO productsDao;
 
     @Override
     public void init() throws ServletException {
         productsDao = new ProductsDAO();
-    }
-    
-    
-    private void saveProduct(HttpSession session, Integer ref){
-        HashMap<Integer,Integer> productsInCart = (HashMap<Integer,Integer>)session.getAttribute(PRODUCTS_IN_CART_KEY);
-        if(productsInCart == null){
-            productsInCart = new HashMap<>();
-        }
-        Integer quantity = 1;
-        if(productsInCart.containsKey(ref)){
-           quantity =  productsInCart.get(ref);
-           quantity += 1;
-        }
-        productsInCart.put(ref, quantity);
-        session.setAttribute(PRODUCTS_IN_CART_KEY, productsInCart);
     }
     
     /**
@@ -58,22 +43,41 @@ public class ListarProductosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String ref = request.getParameter("addToCart");
-        if(ref != null){
-            HttpSession session = request.getSession();
-            saveProduct(session,Integer.parseInt(ref));
-            //save the product name to request scope
-            request.setAttribute("productAdded", ref);
+        HttpSession session = request.getSession();
+         //recuperamos mapa con los productos
+        HashMap<Integer,Integer> productsInCart = (HashMap<Integer,Integer>)session.getAttribute("ProductsInCart");
+        
+        //comprobamos si existe el parámetro drop con la ref del producto a eliminar del carro.
+        String refParam = request.getParameter("drop");
+        if(refParam != null){
+            Integer ref = Integer.parseInt(refParam);
+            if(productsInCart.containsKey(ref)){
+                productsInCart.remove(ref);
+                request.setAttribute("productDeleted", ref);
+            }
         }
         
-        //set products on request scope
-        List<Product> products = productsDao.getProducts();
-        request.setAttribute("products", products);
-       
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/listarProductos.jsp");
+        List<ProductInCart> products = new ArrayList<>();
+        if(productsInCart != null && productsInCart.size() > 0){
+            //iteramos sobre el map para obtener una lista de ProductInCart que se presentarán en la tabla
+            Iterator it = productsInCart.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry entry = (Map.Entry)it.next();
+                //Obtenemos información de producto a partir de su ref.
+                Product product = productsDao.getProductByRef((Integer)entry.getKey());
+                products.add(new ProductInCart(product.getRef(),product.getName(),product.getPrice(), (Integer) entry.getValue()));
+            }
+            //establecemos la lista en el request scope
+            request.setAttribute("products", products);
+        }
+        //redirigimos al servlet de presentación
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/carrito.jsp");
         rd.forward(request, response);
+        
+        
+        
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -86,8 +90,7 @@ public class ListarProductosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request,response);
-        
+        processRequest(request, response);
     }
 
     /**
@@ -101,7 +104,7 @@ public class ListarProductosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request,response);
+        processRequest(request, response);
     }
 
     /**

@@ -21,7 +21,7 @@ public class ProductsDAO {
         ///Integer ref, String description, Boolean avaliable, Float price
         products.add(new Product(2020420,"Pantalón Clásico","Pantalón muy bonito, perfecto para el verano",true,33.89f));
         products.add(new Product(4010210,"Camiseta Deporte", "Camiseta perfecta para hacer deporte este verano",true,33.89f));
-        products.add(new Product(2041116,"Gorra Deporte", "Una gorra",true,21.18f));
+        products.add(new Product(2041116,"Gorra Deporte", "Una gorra",false,21.18f));
     }
     
     public List<Product> getProducts(){
