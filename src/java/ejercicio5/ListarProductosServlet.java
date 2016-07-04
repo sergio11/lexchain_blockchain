@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  */
 public class ListarProductosServlet extends HttpServlet {
     
-    public final static String PRODUCTS_IN_CART_KEY = "ProductsInCart";
+    
     
     private ProductsDAO productsDao;
 
@@ -32,20 +32,6 @@ public class ListarProductosServlet extends HttpServlet {
         productsDao = new ProductsDAO();
     }
     
-    
-    private void saveProduct(HttpSession session, Integer ref){
-        HashMap<Integer,Integer> productsInCart = (HashMap<Integer,Integer>)session.getAttribute(PRODUCTS_IN_CART_KEY);
-        if(productsInCart == null){
-            productsInCart = new HashMap<>();
-        }
-        Integer quantity = 1;
-        if(productsInCart.containsKey(ref)){
-           quantity =  productsInCart.get(ref);
-           quantity += 1;
-        }
-        productsInCart.put(ref, quantity);
-        session.setAttribute(PRODUCTS_IN_CART_KEY, productsInCart);
-    }
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -59,10 +45,11 @@ public class ListarProductosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        Carrito carrito = new Carrito(session);
         String ref = request.getParameter("addToCart");
         if(ref != null){
-            HttpSession session = request.getSession();
-            saveProduct(session,Integer.parseInt(ref));
+            carrito.saveProduct(Integer.parseInt(ref));
             //save the product name to request scope
             request.setAttribute("productAdded", ref);
         }
@@ -70,6 +57,8 @@ public class ListarProductosServlet extends HttpServlet {
         //set products on request scope
         List<Product> products = productsDao.getProducts();
         request.setAttribute("products", products);
+        //set total product session on request scope
+        request.setAttribute("totalProductsInCart",carrito.getTotalProducts());
        
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/listarProductos.jsp");
         rd.forward(request, response);

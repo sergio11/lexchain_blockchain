@@ -65,7 +65,12 @@
                     %>
                     <tr>
                         <td><%= product.getRef()%></td>
-                        <td><%= product.getName()%></td>
+                        <td>
+                            <%= product.getName()%> 
+                            <% if(product.getDescription() != null && product.getDescription().length() > 0){ %>
+                            <a class="label label-info" data-container="body" data-toggle="popover" data-placement="right" data-content="<%= product.getDescription() %>"><span class="fa fa-eye"></span></a>
+                            <% } %>
+                        </td>
                         <td><% if(product.isAvaliable()) { %> <span class="label label-success"><span class="fa fa-check" aria-hidden="true"></span></span> <% }else{ %> <span class="label label-danger"><span class="fa fa-ban" aria-hidden="true"></span></span><% }%></td>
                         <td><%= product.getPrice()%></td>
                         <td><a class="btn btn-default btn-sm  <% if(!product.isAvaliable()) { %> disabled <% } %>" href="ListarProductos?addToCart=<%= product.getRef() %>" data-toggle="tooltip" data-placement="right" title="" data-original-title="Añadir <%= product.getName() %> al carrito"><span class="fa fa-cart-plus"></span></a></td>
@@ -86,6 +91,7 @@
                 <script>
                     $(function () {
                         $('[data-toggle="tooltip"]').tooltip();
+                        $('[data-toggle="popover"]').popover();
                     });
                 </script>
     </body>

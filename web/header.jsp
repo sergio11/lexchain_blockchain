@@ -18,8 +18,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="ListarProductos">Productos</a></li>
-                <% HashMap<String,Integer> cart = (HashMap<String,Integer>)session.getAttribute("ProductsInCart");%>
-                <li><a href="ListarCarrito">Carrito <span class="fa fa-shopping-cart"></span>&nbsp;<% if(cart != null ){ %> (<%= cart.size() %>) <% }%></a></li>
+                <li><a href="ListarCarrito">Carrito <span class="fa fa-shopping-cart"></span>&nbsp;(<%= request.getAttribute("totalProductsInCart") %>)</a></li>
             </ul>
         </div>
     </div>

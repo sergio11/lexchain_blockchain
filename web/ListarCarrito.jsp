@@ -39,9 +39,7 @@
             </div>
             <% } %>
             
-            <% if(products != null){ %>
-            <h2>Su cesta contiene <%= products.size() %> productos</h2>
-            <% } %>
+            <h2>Su cesta contiene <%= request.getAttribute("totalProductsInCart") %> productos</h2>
             <table class="table table-striped text-center">
                 <thead>
                   <tr>

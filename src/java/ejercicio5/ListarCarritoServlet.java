@@ -46,23 +46,21 @@ public class ListarCarritoServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-         //recuperamos mapa con los productos
-        HashMap<Integer,Integer> productsInCart = (HashMap<Integer,Integer>)session.getAttribute("ProductsInCart");
-        
+        Carrito carrito = new Carrito(session);
         //comprobamos si existe el parámetro drop con la ref del producto a eliminar del carro.
-        String refParam = request.getParameter("drop");
-        if(refParam != null){
-            Integer ref = Integer.parseInt(refParam);
-            if(productsInCart.containsKey(ref)){
-                productsInCart.remove(ref);
-                request.setAttribute("productDeleted", ref);
-            }
+        String ref = request.getParameter("drop");
+        if(ref != null){
+            carrito.removeProduct(Integer.parseInt(ref));
+            request.setAttribute("productDeleted", Integer.parseInt(ref));
         }
-        
-        List<ProductInCart> products = new ArrayList<>();
-        if(productsInCart != null && productsInCart.size() > 0){
+        //set total product session on request scope
+        request.setAttribute("totalProductsInCart",carrito.getTotalProducts());
+       
+        if(carrito.getTotalProducts() > 0){
+            //Procedemos a mapear el contenido del carrito a objetos ProductInCart
+            List<ProductInCart> products = new ArrayList<>();
             //iteramos sobre el map para obtener una lista de ProductInCart que se presentarán en la tabla
-            Iterator it = productsInCart.entrySet().iterator();
+            Iterator it = carrito.getProductsInCart().entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry entry = (Map.Entry)it.next();
                 //Obtenemos información de producto a partir de su ref.
@@ -75,8 +73,6 @@ public class ListarCarritoServlet extends HttpServlet {
         //redirigimos al servlet de presentación
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ListarCarrito.jsp");
         rd.forward(request, response);
-        
-        
         
     }
 
