@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
-import models.Product;
-import models.ProductInCart;
 
 /**
  *
@@ -46,10 +44,13 @@ public class Carrito {
     }
     
     /* Elimina el producto del carrito si este existe*/
-    public void removeProduct(Integer ref){
+    public boolean removeProduct(Integer ref){
+        boolean result = false;
         if(productsInCart.containsKey(ref)){
-            productsInCart.remove(ref);   
+            productsInCart.remove(ref);
+            result = true;
         }
+        return result;
     }
     /* Devuelve la cantidad total de productos en el carrito*/
     public Integer getTotalProducts(){

@@ -50,8 +50,9 @@ public class ListarCarritoServlet extends HttpServlet {
         //comprobamos si existe el parámetro drop con la ref del producto a eliminar del carro.
         String ref = request.getParameter("drop");
         if(ref != null){
-            carrito.removeProduct(Integer.parseInt(ref));
-            request.setAttribute("productDeleted", Integer.parseInt(ref));
+            boolean result = carrito.removeProduct(Integer.parseInt(ref));
+            if(result)
+                request.setAttribute("productDeleted", Integer.parseInt(ref));
         }
         //set total product session on request scope
         request.setAttribute("totalProductsInCart",carrito.getTotalProducts());

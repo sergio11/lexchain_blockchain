@@ -75,7 +75,7 @@
                         }else{
                     %> 
                     <tr class="warning text-center">
-                        <td colspan="5"><strong>El carrito está vacío</strong></td>
+                        <td colspan="6"><strong>El carrito está vacío</strong></td>
                     </tr>
                     <%
                         }
