@@ -35,19 +35,19 @@ The primary goal of **LexChain** is to **explore** how **blockchain** can help i
 - Tracking changes and updates to contracts in a transparent and immutable way
 - Providing a mechanism for dispute resolution and contract execution
 
-## 📚 Further Information
-
-This is a **proof of concept** and **not** a ready-to-deploy solution for real-world use cases. The project is primarily focused on researching the applicability of **blockchain technology** in the legal industry.
-
-
-
 ## 🛠️ Installation
+First, clone the repository:
 
-To get started with **LexChain**, follow the instructions below.
+```bash
+git clone https://github.com/sergio11/lexchain_blockchain.git
+cd lexchain_blockchain
+```
 
-### Installation
+Install the necessary dependencies:
 
-First, clone the repository and install the necessary dependencies.
+```bash
+npm install
+```
 
 ## 📜 Usage
 
@@ -62,6 +62,41 @@ First, clone the repository and install the necessary dependencies.
 ## ⚙️ Smart Contracts
 
 LexChain leverages **Solidity** smart contracts for contract management, utilizing Ethereum's blockchain for data integrity and transparency. The system works by allowing parties to sign, execute, and resolve disputes with the help of **smart contracts**.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+import "./ILexChain.sol";
+
+/**
+ * @title LexChain
+ * @dev A smart contract to manage legal agreements with transparency and immutability.
+ * This contract enables parties to create, sign, and execute legally binding agreements
+ * on the Ethereum blockchain, ensuring security and transparency.
+ */
+contract LexChain is ILexChain {
+    /**
+     * @dev Struct representing a legal contract.
+     * @param owner The creator of the contract.
+     * @param partyA The first signing party.
+     * @param partyB The second signing party.
+     * @param documentHash IPFS hash of the agreement document.
+     * @param state Current state of the contract.
+     * @param expirationTime Time by which the contract must be signed/executed.
+     */
+    struct Contract {
+        address owner;
+        address partyA;
+        address partyB;
+        string documentHash;
+        State state;
+        mapping(address => bool) signatures;
+        bool disputeRaised;
+        address disputeResolution;
+        uint256 expirationTime;
+    }
+```
 
 Note: The implementation of smart contracts in this POC is for learning purposes and may need additional features for real-world applications.
 
