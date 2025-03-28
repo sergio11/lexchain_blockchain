@@ -1,0 +1,12 @@
+{
+  "name": "LexChain",
+  "version": "0.0.1",
+  "description": "LexChain is a blockchain-based contract management system enabling transparent, secure, and immutable legal agreements between parties.",
+  "author": "Sergio Sánchez",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.5",
+    "@openzeppelin/contracts": "^5.0.0"
+  }
+}
