@@ -2,6 +2,15 @@
 
 Welcome to **LexChain**! This project is a **proof of concept (POC)** designed to explore how **blockchain technology** can be applied to the management of legal contracts. It is not intended to be used in production environments, but rather serves as a personal exploration into the potential of using blockchain for increasing transparency, security, and traceability in legal agreements.
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Solidity-2E8B57?style=for-the-badge&logo=solidity&logoColor=white" />
+  <img src="https://img.shields.io/badge/Alchemy-039BE5?style=for-the-badge&logo=alchemy&logoColor=white" />
+  <img src="https://img.shields.io/badge/Remix IDE-3e5f8a?style=for-the-badge&logo=remix&logoColor=white" />
+  <img src="https://img.shields.io/badge/Hardhat-E6522C?style=for-the-badge&logo=hardhat&logoColor=white" />
+  <img src="https://img.shields.io/badge/Polygon-854ce6?style=for-the-badge&logo=Polygon&logoColor=white" />
+  <img src="https://img.shields.io/badge/Smart%20Contracts-8B0000?style=for-the-badge&logo=Polygon&logoColor=white" />
+</p>
+
 ## ⚠️ Disclaimer
 
 **LexChain** is an experimental project and should be considered a **proof of concept** rather than a fully developed product. It aims to investigate the possibility of using blockchain technology to manage legal contracts in a secure, transparent, and immutable way. This project is not intended for real-world applications at this stage and is not meant to replace traditional legal frameworks.
