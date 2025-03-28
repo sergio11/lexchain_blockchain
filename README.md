@@ -13,27 +13,31 @@ Welcome to **LexChain**! This project is a **proof of concept (POC)** designed t
 
 ## ⚠️ Disclaimer
 
-**LexChain** is an experimental project and should be considered a **proof of concept** rather than a fully developed product. It aims to investigate the possibility of using blockchain technology to manage legal contracts in a secure, transparent, and immutable way. This project is not intended for real-world applications at this stage and is not meant to replace traditional legal frameworks.
-
-This project explores the potential use of **smart contracts** to:
-- Securely store legal agreements
-- Track the signing process
-- Provide transparency and traceability of contract changes
+**LexChain** is an experimental project and should be considered a **proof of concept** rather than a fully developed product. It aims to investigate the possibility of using blockchain technology to manage legal contracts in a secure, transparent, and immutable way.
 
 ## 🌟 Key Features of LexChain:
 
-* 🔒 **Blockchain-based Security**: The project uses **smart contracts** on Ethereum to store legal agreements in a secure and immutable way, ensuring the integrity of the contract.
-* 🕵️ **Transparent Tracking of Signatures**: LexChain allows for the tracking of contract signatures by different parties, offering clear visibility into the status of the contract.
-* ⏰ **Contract Expiration**: Contracts can have expiration times to ensure that agreements are executed within specific timeframes.
-* ⚖️ **Dispute Resolution**: The project includes a basic framework for raising and resolving disputes related to the contract, allowing for the involvement of an arbitrator.
+* 🔒 **Blockchain-based Security**: LexChain leverages **smart contracts** on the Ethereum blockchain to store and manage legal agreements. This ensures **immutable** and **tamper-proof** records, protecting the integrity of contracts and reducing the risk of fraud or unauthorized changes. Once stored, contracts cannot be altered without the consent of all involved parties, ensuring a high level of security.
+  
+* 🕵️ **Transparent Tracking of Signatures**: LexChain enables **real-time tracking** of contract signatures from all involved parties, allowing everyone to easily verify the status of the contract. This feature promotes **accountability** and provides full visibility into the contract lifecycle, making it easier to ensure that all parties have agreed to the terms.
+
+* ⏰ **Contract Expiration**: LexChain allows for the integration of **expiration times** on contracts, ensuring that agreements are executed within defined timeframes. This feature ensures that if contracts are not executed before their expiration, they automatically become void, reducing the potential for missed deadlines or stale agreements.
+
+* ⚖️ **Dispute Resolution**: In case of disagreements or breaches of contract, LexChain includes a **built-in framework** for **raising and resolving disputes**. The system allows for the involvement of an **arbitrator** to review the issue and make a decision, ensuring that both parties have a fair avenue for resolving conflicts and that the contract’s terms are upheld.
+
 
 ## 📝 Purpose
 
-The primary goal of **LexChain** is to **explore** how **blockchain** can help in managing **legal contracts**. Some of the aspects being evaluated include:
+The primary goal of **LexChain** is to **explore** how **blockchain technology** can revolutionize the management of **legal contracts** by increasing efficiency, security, and transparency. Key aspects under evaluation include:
 
-- Using smart contracts to automate parts of the contract lifecycle
-- Tracking changes and updates to contracts in a transparent and immutable way
-- Providing a mechanism for dispute resolution and contract execution
+- **Automating Contract Lifecycle**: By using smart contracts, LexChain aims to automate key stages of the contract process, such as signing, execution, and enforcement. This reduces human error and the need for intermediaries, making the process more efficient.
+  
+- **Tracking Changes Transparently**: With blockchain’s immutable nature, every update or change made to a contract is recorded and timestamped, ensuring full transparency. This creates a permanent, auditable trail that can be easily reviewed by any party involved.
+  
+- **Dispute Resolution Mechanism**: LexChain tests the ability of blockchain technology to support decentralized dispute resolution, where an arbitrator or mediator can be involved without relying on traditional legal processes. This ensures faster resolution, lower costs, and a more equitable approach to conflict resolution.
+
+- **Enhancing Legal Frameworks**: This project aims to demonstrate how blockchain can complement and improve current legal practices, providing a modern alternative to paper-based and manual processes in managing contracts.
+
 
 ## 🛠️ Installation
 First, clone the repository:
@@ -51,17 +55,24 @@ npm install
 
 ## 📜 Usage
 
-**LexChain** is currently deployed and tested on the **Ethereum test networks**. The smart contracts can be used for experimenting with the contract creation, signing process, dispute resolution, and contract execution.
+**LexChain** is currently deployed and tested on the **Ethereum test networks**, offering a platform for experimenting with **contract creation**, the **signing process**, **dispute resolution**, and **contract execution**.
 
 ### Key Actions in LexChain:
-- **Create Contract**: Initiate a contract with two parties and specify terms, expiration time, and contract details.
-- **Sign Contract**: Both parties can sign the contract, after which the contract moves to a "Signed" state.
-- **Execute Contract**: Once signed, the owner can execute the contract, marking it as "Executed."
-- **Dispute Resolution**: A party can raise a dispute if there is a disagreement, and an arbitrator can resolve the dispute.
+- **Create Contract**: Initiate a legal agreement by creating a contract that involves two parties. Specify the terms, expiration time, and contract details, including a document hash to represent the contract’s content.
+  
+- **Sign Contract**: Both **partyA** and **partyB** must sign the contract. Once both parties have signed, the contract transitions into a "Signed" state, marking mutual consent.
+  
+- **Execute Contract**: After both parties sign the contract, the **contract owner** can execute the contract. This action changes the state to "Executed," signaling that the terms have been fulfilled.
+  
+- **Dispute Resolution**: If either party raises a dispute, the system allows the involvement of an **arbitrator** to resolve the conflict. This feature provides a decentralized mechanism for fair conflict resolution, ensuring that both parties have an avenue to voice concerns and seek solutions.
 
 ## ⚙️ Smart Contracts
 
-LexChain leverages **Solidity** smart contracts for contract management, utilizing Ethereum's blockchain for data integrity and transparency. The system works by allowing parties to sign, execute, and resolve disputes with the help of **smart contracts**.
+LexChain uses **Solidity** to build the core of the system: the **smart contracts**. These contracts run on the **Ethereum blockchain**, ensuring data integrity, transparency, and security for all contract activities, such as signing, executing, and resolving disputes.
+
+The smart contracts also ensure the contracts are immutable once signed, providing both parties with a level of security and trust throughout the contract's lifecycle.
+
+### LexChain Smart Contract (Solidity Example):
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -98,23 +109,39 @@ contract LexChain is ILexChain {
     }
 ```
 
-Note: The implementation of smart contracts in this POC is for learning purposes and may need additional features for real-world applications.
-
 ## 🧪 Testing
 
-Testing is an essential part of this project to ensure the functionality of contract creation, signing, dispute resolution, and contract execution. The tests are designed to ensure the contracts behave as expected in various scenarios.
+Testing is a critical part of this project to ensure the functionality and reliability of the system. It verifies that **contract creation**, **signing**, **dispute resolution**, and **contract execution** work as expected. The tests are designed to simulate different scenarios and ensure the smart contracts behave correctly in real-world use cases.
 
 ### Running Tests
 
-Tests are executed to validate that the core functionalities, like signing, executing, and handling disputes, are functioning correctly.
+The tests are executed to validate that the core functionalities of LexChain—such as **signing**, **executing**, and **handling disputes**—are functioning correctly. The goal is to ensure that each action, from contract creation to dispute resolution, operates as intended under various conditions.
+
+### Running the Tests
+To run the tests, use the following command:
+
+```shell
+npx hardhat test
+```
+
+This command will execute all the test scripts located in the test directory, and you should see output similar to the following:
+
+<img width="auto" src="./doc/picture_1.PNG" />
 
 ## 📜 Roadmap
 
-- **Phase 1: Contract Creation & Signing**: Develop and test the ability to create and sign contracts on the blockchain.
-- **Phase 2: Dispute Handling**: Implement and test dispute resolution mechanisms.
-- **Phase 3: Contract Execution**: Enable the execution of contracts once all parties have signed.
-- **Phase 4: Evaluation and Improvements**: Analyze the feasibility and efficiency of using blockchain in legal processes and improve the system based on findings.
+- **Phase 1: Contract Creation & Signing**:  
+  Focus on developing and testing the ability to create contracts and facilitate the signing process. This phase will include creating contracts, adding terms, and transitioning contracts into a "Signed" state.
 
-## 🤝 Contributing
+- **Phase 2: Dispute Handling**:  
+  Develop and test dispute resolution mechanisms. This phase involves adding functionality to raise disputes and resolving them via an arbitrator, ensuring fairness and transparency in the process.
 
-Since this is a personal **proof of concept**, contributions are not expected, but feel free to open issues for discussions or suggestions on how this project could evolve in the future.
+- **Phase 3: Contract Execution**:  
+  Once contracts are signed, this phase enables the execution of contracts. It ensures that contracts can be executed only once all parties have signed, and the system updates the contract status to "Executed."
+
+- **Phase 4: Evaluation and Improvements**:  
+  Analyze the system’s performance and its use in legal processes. Based on findings, this phase will focus on optimizing the system and making improvements to enhance its overall efficiency and user experience.
+
+## Visitors Count
+
+<img width="auto" src="https://profile-counter.glitch.me/lexchain_blockchain/count.svg" />
