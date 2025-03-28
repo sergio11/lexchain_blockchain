@@ -107,6 +107,11 @@ contract LexChain is ILexChain {
         address disputeResolution;
         uint256 expirationTime;
     }
+
+
+    // Contract implementation
+
+}
 ```
 
 ## 🧪 Testing
